@@ -1,0 +1,31 @@
+{
+  "what": "sha256 pins of the registration-v2 model folder (D-067, DRAFT until the registration-v2 tag). Every byte the container reads is a pinned file of the folder (the encoder ships as chunks), so good_disco_sha256 is null. src/container/submission.py reads this file when SBN_REGISTERED_PINS points to it.",
+  "registration": "docs/journal/REGISTRATION_v2.md (draft; tag registration-v2 pending author review)",
+  "folder": "model_v2c",
+  "files": {
+    "encoder_chunks/encoder.pt.part000": "00927aea431f997ee4b25edb93eb6d5eadaa360cc461b73e7cef5702a4c05e38",
+    "encoder_chunks/encoder.pt.part001": "018dd3660e0b77b017975053c60b43070d1d0878fb9e6f34c190cdef9157fc2e",
+    "encoder_chunks/encoder.pt.part002": "5974a6e5764d83b432d6381b013275c77f36b9886828821e0f533cb8d4032244",
+    "encoder_chunks/encoder.pt.part003": "81c0ee1a3163053a823dd233e11aef9851b2eb3a1f33c6a3a098fed1b420a6ae",
+    "encoder_chunks/encoder.pt.part004": "422266d52c005faae142f6e81eb937aad1fdf3f8f3ea8ea54310d9a6ff638b4c",
+    "encoder_chunks/encoder.pt.part005": "db4cd2ad83135bc40f9aeb3fd2757b022693a44ec0ccfc09097b69a6d3332b5c",
+    "encoder_chunks/encoder.pt.part006": "cf0f38ccfe02adf12bee75a3cc2f8c735f102778caff39b6748bffe6dccbb1d1",
+    "encoder_chunks/encoder.pt.part007": "01d1d650a8e66a92f625c7a23a0e3f7b337ec9c7e4b831a7bbd3a6814bd9791a",
+    "encoder_chunks/encoder.pt.part008": "66fdcf9d1f939fcc5f08c57d00616c08171a6a43cbd1ae25420e2dcb745b669e",
+    "encoder_chunks/encoder.pt.part009": "b443eb2a8a28ed651e31325258ac371be7150ebf0cf1a8212fa6c5ba53c83ac4",
+    "export.json": "ee368c20f8a0bda58a2a1ce8e51994d8e793c92644c3ebb4db899132ce55fa1c",
+    "head_final.pt": "52bc495bc4c461cb0ea3804b22215ec143f72700ece462bccb4c3093765dcda8",
+    "journal_manifest.json": "05992d9806baca1fa311570792338b6f593cbede215ca1cf47df4317a0f3bb3f"
+  },
+  "good_disco_sha256": null,
+  "encoder": {
+    "run_id": "own_final_mc_mse_per_lead_b1_all_s0",
+    "config_sha": "3379ed59d398ce71b146c78adbdeaa8311732555e7d9f285b15ca6546587b745",
+    "encoder_pt_sha256": "089d9653ba52e59d33eb9158dfdf73b7820668c63218112ea82cc3499959cea9"
+  },
+  "head_fit": {
+    "dir": "results/final/own_final_mc_allfolds_s0",
+    "config_sha": "0a0a36973d1ad730d896622ad37938310bf790ba80d7310133c1d5bbbe9524a0"
+  },
+  "timestamp": "2026-10-18T13:06:54-0400"
+}

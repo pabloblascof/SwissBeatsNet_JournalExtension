@@ -1,0 +1,7 @@
+# Nothing in this folder is data; keep caches and local environments out of the image.
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
