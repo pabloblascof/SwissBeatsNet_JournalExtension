@@ -169,7 +169,14 @@ def active_mode(environ: Optional[dict] = None) -> Optional[str]:
 
 
 def registered_dir() -> Path:
-    return Path(os.environ.get(REGISTERED_DIR_ENV) or DEFAULT_REGISTERED_DIR)
+    raw = os.environ.get(REGISTERED_DIR_ENV)
+    if raw:
+        return Path(raw)
+    # Submission build: the image copies the folder to DEFAULT_REGISTERED_DIR; without that
+    # copy, the repository's own model_v2c (the same pinned bytes) is used.
+    if not DEFAULT_REGISTERED_DIR.is_dir() and (REPO_ROOT / "model_v2c").is_dir():
+        return REPO_ROOT / "model_v2c"
+    return DEFAULT_REGISTERED_DIR
 
 
 # --------------------------------------------------------------------------
@@ -358,8 +365,7 @@ def load_registered_model(verbose: bool = False, device: Optional[str] = None) -
     """Verify the registered folder and load it in place (run-only flow, empty mount)."""
     src = registered_dir()
     info = verify_registered_folder(src)
-    print(f"[{MODE_FOLDER}] model folder has neither {JM.MANIFEST_NAME} nor model.pth; "
-          f"loading the verified registered model from {src}", file=sys.stderr)
+    print(f"[{MODE_FOLDER}] loading the verified registered model from {src}", file=sys.stderr)
     if verbose:
         print(json.dumps(info, indent=2))
     return JM.JournalModel.load(src, device=device)

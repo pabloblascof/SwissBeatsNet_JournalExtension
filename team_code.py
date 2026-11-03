@@ -9,6 +9,13 @@
 #
 ################################################################################
 
+import os
+
+# Submission build (PROVENANCE.md): the same settings as the Dockerfile's ENV lines, applied
+# here too so that a run without the image environment still reaches the registered model.
+os.environ.setdefault("SBN_SUBMISSION_MODE", "registered_folder")
+os.environ.setdefault("SBN_REGISTERED_PINS", "configs/registered_model_pins_v2c.json")
+
 from team.utils import setup, create_model, load_config, PROFILE, profile, load_split_pth, load_mmmae_config_structure
 from team.utils_challenge import load_signals, load_header
 from team.utils_circular import check_tensor, prob_to_class
@@ -100,6 +107,13 @@ def train_model_parameterized(data_folder, model_folder, verbose, config_path_ar
 # Load your trained models. This function is *required*. You should edit this function to add your code, but do *not* change the
 # arguments of this function. If you do not train one of the models, then you can return None for the model.
 def load_model(model_folder, verbose):
+
+    # Submission build (PROVENANCE.md): only the registered model_v2c is served, verified
+    # against its pins. Whatever the model folder holds (the copy train_model.py made, nothing,
+    # or files from an earlier run such as model.pth) never selects another model.
+    if _submission_mode() == "registered_folder":
+        from src.container import submission
+        return submission.load_registered_model(verbose)
 
     # Journal model folder -> JournalModel (see src/container/journal_model.py)
     if os.path.exists(os.path.join(model_folder, JOURNAL_MANIFEST_NAME)):

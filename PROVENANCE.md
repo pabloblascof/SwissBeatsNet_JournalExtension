@@ -13,3 +13,15 @@
   (`scripts/container/submission_v2c/`), and this file.
 - Assembled by `scripts/container/package_submission_v2c.sh`. File times are set to the tagged commit's time,
   so rebuilding from the same two commits gives the same zip.
+- Routing fix (second commit, after the organisers' first run failed on 2026-10-30 with
+  `MissingConfigException: Cannot find primary config 'chagas'`). In `team_code.py` and `src/container/submission.py`
+  only, three changes to which model is loaded; the model, its pins and every computation on a record are unchanged:
+  - `team_code.load_model` always serves the registered model, verified against its pins. Before, a model folder
+    holding `model.pth` (for example one kept from an earlier run) sent it to the CinC anchor path, which this
+    runtime-only tree cannot run.
+  - `team_code.py` sets `SBN_SUBMISSION_MODE` and `SBN_REGISTERED_PINS` to the Dockerfile's values when they are
+    unset, so a run without the image environment behaves the same.
+  - Without `/challenge/registered_model`, the repository's own `model_v2c/` (the same pinned bytes) is used.
+  - Checked on a copy of the tracked files, with three flows on the 220 public records: run only with a folder
+    holding `model.pth` and the image environment; run only with no environment and an empty folder; train then
+    run, with no environment. Each matches the Docker dry run (largest probability difference 4e-8; no label differs).
