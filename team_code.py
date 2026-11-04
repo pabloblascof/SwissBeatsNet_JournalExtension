@@ -15,6 +15,9 @@ import os
 # here too so that a run without the image environment still reaches the registered model.
 os.environ.setdefault("SBN_SUBMISSION_MODE", "registered_folder")
 os.environ.setdefault("SBN_REGISTERED_PINS", "configs/registered_model_pins_v2c.json")
+# CPU only, whatever GPU the host offers: the registered model was verified on CPU, and the
+# image's torch build has no kernels for the newest GPUs. Set before any CUDA call reads it.
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 from team.utils import setup, create_model, load_config, PROFILE, profile, load_split_pth, load_mmmae_config_structure
 from team.utils_challenge import load_signals, load_header

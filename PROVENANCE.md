@@ -25,3 +25,7 @@
   - Checked on a copy of the tracked files, with three flows on the 220 public records: run only with a folder
     holding `model.pth` and the image environment; run only with no environment and an empty folder; train then
     run, with no environment. Each matches the Docker dry run (largest probability difference 4e-8; no label differs).
+- CPU only (third change, same files): `team_code.py` sets `CUDA_VISIBLE_DEVICES` to empty before any CUDA call,
+  so the model runs on CPU whatever GPU the host attaches (the image's torch 2.5.1 has no kernels for Blackwell GPUs).
+  Checked with two GPUs visible: torch sees no CUDA device, and train then run on the 220 public records gives
+  outputs identical to the Docker dry run.
