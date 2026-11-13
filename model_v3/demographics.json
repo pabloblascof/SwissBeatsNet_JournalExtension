@@ -1,0 +1,41 @@
+{
+  "kind": "demographics_logreg",
+  "recipe": "configs/baselines/demographics.yaml (S3.2)",
+  "config_sha": "f4d24cbde27f022b791e37b290d4fd40deae11611300bf97c7cfceffdc62627f",
+  "label_policy": "any_positive",
+  "columns": [
+    "age",
+    "age_sq",
+    "sex_male"
+  ],
+  "impute_median": [
+    55.0,
+    3025.0,
+    0.0
+  ],
+  "scaler_mean": [
+    53.78590876196458,
+    3324.2931332523176,
+    0.4097273236205743
+  ],
+  "scaler_scale": [
+    20.76942829983321,
+    3205.7423752679642,
+    0.49178333023668935
+  ],
+  "coef": [
+    3.9078747447861693,
+    -4.644935470716775,
+    -0.11506387307115054
+  ],
+  "intercept": -0.3169155492095559,
+  "threshold_logit": 0.5714477896690369,
+  "binarization": "top_fraction:0.05 of in-sample training logits",
+  "n_train": 366185,
+  "n_train_pos": 11854,
+  "n_train_by_source": {
+    "CODE-15%": 342755,
+    "PTB-XL": 21799,
+    "SaMi-Trop": 1631
+  }
+}

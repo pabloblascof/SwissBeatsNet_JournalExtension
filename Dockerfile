@@ -1,5 +1,5 @@
-# Challenge container for SwissBeatsNet: the registered single model model_v2c
-# (REGISTRATION_v2.md, tag registration-v2). Built and run by the organisers with
+# Challenge container for SwissBeatsNet, focus-issue entry 2: the registered demographics-only
+# baseline model_v3 (REGISTRATION_v3.md). Base image and pinned requirements are those of entry F32. Built and run by the organisers with
 # the standard train_model.py / run_model.py commands; see README.md.
 #
 # Base image: pinned by tag. To pin it by digest as well, resolve it with
@@ -13,14 +13,6 @@ RUN apt-get update && apt-get install -y python3.10-venv && apt-get clean && rm 
 RUN mkdir /challenge
 COPY ./ /challenge
 WORKDIR /challenge
-
-# The registered model (REGISTRATION_v2.md section 5). It lives outside the
-# /challenge/model mount, so a mounted folder cannot shadow it. train_model.py
-# verifies it and copies it into the model folder; run_model.py on an empty
-# model folder verifies and loads it in place. No training happens.
-COPY ./model_v2c /challenge/registered_model
-ENV SBN_SUBMISSION_MODE=registered_folder
-ENV SBN_REGISTERED_PINS=configs/registered_model_pins_v2c.json
 
 # Determinism and a quiet, writable runtime: hash seed fixed, cuBLAS workspace
 # fixed (required by torch.use_deterministic_algorithms), matplotlib (imported
@@ -37,8 +29,5 @@ ENV PYTHONHASHSEED=0 \
 # the pinned torch==2.5.1 wheel and its own dependencies.
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Fail the build, not the run, if any byte of the registered model differs from
-# its sha256 pins, or if the model path cannot be imported.
-RUN SBN_REGISTERED_MODEL_DIR=/challenge/registered_model python -m src.container.submission verify
-RUN python -c "import src.container.journal_model; print('journal model path importable')"
-RUN python -c "import team_code; print('team_code importable')"
+# Fail the build, not the run, if any byte of the registered model differs from its sha256 pin.
+RUN python -c "import team_code; team_code.verify(); print('model_v3 pins verified; team_code importable')"

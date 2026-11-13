@@ -1,0 +1,6 @@
+{
+  "model": "model_v3 (registration-v3, demographics-only)",
+  "files": {
+    "demographics.json": "308912f50c68c81820286ef542f684ef1a997555529e03655d24c35fc7330a62"
+  }
+}
